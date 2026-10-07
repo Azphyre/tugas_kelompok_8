@@ -14,6 +14,7 @@ void tampilanMenu() {
   cout << "3. Absensi\n";
   cout << "4. Rekab Absensi\n";
   cout << "5. Urutkan Data Siswa Berdasarkan NPM\n";
+  cout << "Masukan Pilihan Menu (0-5) : ";
 }
 
 void tambahSiswa(int npm[], string nama[], int &jumlahSiswa) {
@@ -27,33 +28,33 @@ void tambahSiswa(int npm[], string nama[], int &jumlahSiswa) {
 
 void tampilkanDataSiswa(int npm[], string nama[], int jumlahSiswa) {
   for (int i = 0; i < jumlahSiswa; i++) {
-    cout << "NPM: " << npm[i] << ", Nama: " << nama[i] << endl;
+    cout << "NPM: " << npm[i] << ", \tNama: " << nama[i] << endl;
   }
 }
 
-// void catatAbsensi(string nama[],int absensi[][MAX_HARI], int jumlahSiswa, int hari) {
-//     cout << "Masukkan data Absensi" << endl;
-//
-//     if (jumlahSiswa == 0) {
-//         cout << "Belum ada data Siswa" << endl;
-//     }
-//
-//     cout << "Absensi hari ke-" << hari + 1 << endl;
-//     cout << "1 = Hadir\n";
-//     cout << "2 = Izin\n";
-//     cout << "3 = Sakit\n";
-//     cout << "4 = Alpa\n\n";
-//
-//     for (int i = 0; i < jumlahSiswa; i++) {
-//         cout << "Nama: " << nama[i] << ", Absensi: " << endl;
-//         cin >> absensi[i][hari];
-//
-//     }
-//     cout << "Absensi berhasil disimpan!\n";
-// }
+void catatAbsensi(string nama[],int absensi[][MAX_HARI], int jumlahSiswa, int hari) {
+    
+    cout << "Masukkan data Absensi" << endl;
+
+    if (jumlahSiswa == 0) {
+        cout << "Belum ada data Siswa" << endl;
+    }
+
+    cout << "Absensi hari ke-" << hari + 1 << endl;
+    cout << "1 = Hadir\n";
+    cout << "2 = Izin\n";
+    cout << "3 = Sakit\n";
+    cout << "4 = Alpa\n\n";
+
+    for (int i = 0; i < jumlahSiswa; i++) {
+        cout << "Nama: " << nama[i] << ", Absensi: ";
+        cin >> absensi[i][hari];
+
+    }
+    cout << "Absensi berhasil disimpan!\n";
+}
 
 //mengurutkan data absensi berdasarkan npm
-void urutkanNPM(int npm[], string nama[], int absensi[][MAX_HARI], int jumlahSiswa, int hari);
 void urutkanNPM(int npm[], string nama[], int absensi[][MAX_HARI], int jumlahSiswa, int hari) {
   if (jumlahSiswa == 0) {
     cout << "Belum ada data siswa untuk diurutkan!\n";
@@ -106,6 +107,9 @@ int main() {
     cin >> pilihan;
 
     switch (pilihan) {
+    case 0:
+        cout<<"Keluar";
+        break;
     case 1:
       tambahSiswa(npm, nama, jumlahSiswa);
       break;
@@ -113,7 +117,7 @@ int main() {
       tampilkanDataSiswa(npm, nama, jumlahSiswa);
       break;
     case 3:
-        // catatAbsensi(nama, absensi, jumlahSiswa, hari);
+        catatAbsensi(nama, absensi, jumlahSiswa, hari);
         hari++;
         break;
     case 4:
@@ -125,7 +129,6 @@ int main() {
     default:
       cout << "Pilihan tidak valid!\n";
     }
-
   } while (pilihan != 0);
 
   return 0;

@@ -13,6 +13,7 @@ void tampilanMenu() {
   cout << "2. Tampilkan Data Siswa\n";
   cout << "3. Absensi\n";
   cout << "4. Rekab Absensi\n";
+  cout << "5. Urutkan Data Siswa Berdasarkan NPM\n";
 }
 
 void tambahSiswa(int npm[], string nama[], int &jumlahSiswa) {
@@ -51,6 +52,46 @@ void tampilkanDataSiswa(int npm[], string nama[], int jumlahSiswa) {
 //     cout << "Absensi berhasil disimpan!\n";
 // }
 
+//mengurutkan data absensi berdasarkan npm
+void urutkanNPM(int npm[], string nama[], int absensi[][MAX_HARI], int jumlahSiswa, int hari);
+void urutkanNPM(int npm[], string nama[], int absensi[][MAX_HARI], int jumlahSiswa, int hari) {
+  if (jumlahSiswa == 0) {
+    cout << "Belum ada data siswa untuk diurutkan!\n";
+    return;
+  }
+
+  if (jumlahSiswa == 1) {
+    cout << "Hanya ada satu siswa, tidak perlu diurutkan.\n";
+    return;
+  }
+
+  // Algoritma Bubble Sort
+  for (int i = 0; i < jumlahSiswa - 1; i++) {
+    for (int j = 0; j < jumlahSiswa - i - 1; j++) {
+      if (npm[j] > npm[j + 1]) {
+        // 1. Tukar posisi NPM
+        int tempNPM = npm[j];
+        npm[j] = npm[j + 1];
+        npm[j + 1] = tempNPM;
+
+        // 2. Tukar posisi Nama (agar tetap sinkron dengan NPM)
+        string tempNama = nama[j];
+        nama[j] = nama[j + 1];
+        nama[j + 1] = tempNama;
+
+        // 3. Tukar posisi riwayat absensi harian (Array 2D)
+        for (int h = 0; h < hari; h++) {
+          int tempAbsen = absensi[j][h];
+          absensi[j][h] = absensi[j + 1][h];
+          absensi[j + 1][h] = tempAbsen;
+        }
+      }
+    }
+  }
+
+  cout << "Data siswa berhasil diurutkan berdasarkan NPM!\n";
+}
+
 int main() {
 
   int jumlahSiswa = 0;
@@ -77,6 +118,9 @@ int main() {
         break;
     case 4:
 
+      break;
+    case 5:
+      urutkanNPM(npm, nama, absensi, jumlahSiswa, hari); // Memanggil fungsi sorting
       break;
     default:
       cout << "Pilihan tidak valid!\n";
